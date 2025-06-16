@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_vertexai/firebase_vertexai.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ai_toolkit/flutter_ai_toolkit.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 import '../data/chat.dart';
 import '../data/chat_repository.dart';
@@ -53,12 +54,14 @@ class _HomePageState extends State<HomePage> {
   LlmProvider _createProvider(Iterable<ChatMessage>? history) => VertexProvider(
         history: history,
         model: FirebaseVertexAI.instance.generativeModel(
-          model: 'gemini-1.5-flash',
+          model: 'gemini-2.0-flash-lite',
         ),
       );
 
   Chat? get _currentChat =>
       _repository?.chats.singleWhere((chat) => chat.id == _currentChatId);
+
+  final FlutterTts flutterTts = FlutterTts();
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -74,6 +77,12 @@ class _HomePageState extends State<HomePage> {
               icon: const Icon(Icons.logout),
               tooltip: 'Logout: ${LoginInfo.instance.displayName!}',
               onPressed: () async => LoginInfo.instance.logout(),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await flutterTts.speak('Hello, Flutter Text-to-Speech!');
+              },
+              child: const Text('Speak'),
             ),
           ],
         ),

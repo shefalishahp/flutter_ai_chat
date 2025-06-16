@@ -8,10 +8,18 @@ import 'data/chat_repository.dart';
 import 'firebase_options.dart'; // from https://firebase.google.com/docs/flutter/setup
 import 'login_info.dart';
 import 'pages/home_page.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ai/firebase_ai.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(App());
 }
 
